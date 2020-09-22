@@ -39,13 +39,9 @@ const useStyles = makeStyles({
   root: {
     minWidth: 275,
   },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
   title: {
     fontSize: 14,
+    fontWeight : "bold",
   },
   pos: {
     marginBottom: 10,
@@ -70,15 +66,21 @@ const useStyles = makeStyles({
   saveButton: {
     float : 'right',
   },
+  inputCards : {
+    marginBottom: 5,
+  }
 });
 
 function Resume() {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
   const [role, setRole] = React.useState('');
+  const [valueAdded, setValueAdded] = React.useState('');
 
-  const handleChange = (event) => {
+  const handleRole = (event) => {
     setRole(event.target.value);
+  };
+  const handleValueAdded = (event) => {
+    setValueAdded(event.target.value);
   };
 
   return (
@@ -93,7 +95,7 @@ function Resume() {
           labelId="role-select-label"
           id="role-simple-select"
           value={role}
-          onChange={handleChange}
+          onChange={handleRole}
         >
           <MenuItem value={1}>Dev. Engineer</MenuItem>
           <MenuItem value={2}>Auto. Engineer</MenuItem>
@@ -102,27 +104,58 @@ function Resume() {
       </FormControl>
       <Button className={classes.saveButton} variant="contained" color="primary">Save</Button>
       </div>
-      <div>
+      <div className={classes.inputCards}>
       <Card className={classes.root} variant="outlined" raised="true">
       <CardContent>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
-          Word of the Day
+        <Typography className={classes.title} color="primary" gutterBottom>
+          Problem Solved for the Customers/Value Addition
         </Typography>
-        <Typography variant="h5" component="h2">
-          be{bull}nev{bull}o{bull}lent
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          adjective
-        </Typography>
-        <Typography variant="body2" component="p">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
+        <TextField
+          placeholder="Eg. Developed frontend and backend website architecture.."
+          multiline
+          fullWidth
+          rows={5}
+          variant="outlined"
+          value={valueAdded}
+          onChange={handleValueAdded}
+        />
+      </CardContent>
+      </Card>
+      </div>
+      <div className={classes.inputCards}>
+      <Card className={classes.root} variant="outlined" raised="true">
+      <CardContent>
+        <Typography className={classes.title} color="primary" gutterBottom>
+          Skillset Summary
         </Typography>
       </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
+      </Card>
+      </div>
+      <div className={classes.inputCards}>
+      <Card className={classes.root} variant="outlined" raised="true">
+      <CardContent>
+        <Typography className={classes.title} color="primary" gutterBottom>
+          Profile Summary
+        </Typography>
+      </CardContent>
+      </Card>
+      </div>
+      <div className={classes.inputCards}>
+      <Card className={classes.root} variant="outlined" raised="true">
+      <CardContent>
+        <Typography className={classes.title} color="primary" gutterBottom>
+          Projects
+        </Typography>
+      </CardContent>
+      </Card>
+      </div>
+      <div className={classes.inputCards}>
+      <Card className={classes.root} variant="outlined" raised="true">
+      <CardContent>
+        <Typography className={classes.title} color="primary" gutterBottom>
+          Personal Information & Areas of Interest/Hobbies
+        </Typography>
+      </CardContent>
       </Card>
       </div>
     </div>
