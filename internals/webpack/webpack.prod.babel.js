@@ -6,6 +6,8 @@ const OfflinePlugin = require('offline-plugin');
 const { HashedModuleIdsPlugin } = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
+const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = require('./webpack.base.babel')({
   mode: 'production',
@@ -67,6 +69,10 @@ module.exports = require('./webpack.base.babel')({
 
   plugins: [
     // Minify and optimize the index.html
+    // new webpack.optimize.DedupePlugin(), //dedupe similar code 
+    // new webpack.optimize.UglifyJsPlugin(), //minify everything
+    new Dotenv(),
+    new webpack.optimize.AggressiveMergingPlugin(),//Merge chunks
     new HtmlWebpackPlugin({
       template: 'app/index.html',
       minify: {
@@ -88,6 +94,9 @@ module.exports = require('./webpack.base.babel')({
     // assets manipulations and do leak its manipulations to HtmlWebpackPlugin
     new OfflinePlugin({
       relativePaths: false,
+      ServiceWorker: {
+        events: true
+      },
       publicPath: '/',
       appShell: '/',
 
@@ -116,9 +125,9 @@ module.exports = require('./webpack.base.babel')({
     }),
 
     new WebpackPwaManifest({
-      name: 'React Boilerplate',
-      short_name: 'React BP',
-      description: 'My React Boilerplate-based project!',
+      name: 'LHCM',
+      short_name: 'LHCM',
+      description: 'AFour Leave Management portal',
       background_color: '#fafafa',
       theme_color: '#b1624d',
       inject: true,

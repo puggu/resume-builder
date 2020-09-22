@@ -1,50 +1,122 @@
 /**
  *
- * App
+ * App.js
  *
  * This component is the skeleton around the actual pages, and should only
  * contain code that should be seen on all pages. (e.g. navigation bar)
+ *
  */
 
 import React from 'react';
-import { Helmet } from 'react-helmet';
-import styled from 'styled-components';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import PropTypes from 'prop-types';
+
+import { useInjectReducer } from 'utils/injectReducer';
+import { createStructuredSelector } from 'reselect';
+
+import PrivateRoute from '../../PrivateRoute';
+import reducer from './reducer';
 
 import HomePage from 'containers/HomePage/Loadable';
-import FeaturePage from 'containers/FeaturePage/Loadable';
+import Dashboard from 'containers/Dashboard/Loadable';
+import LoginPage from 'containers/LoginPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
-import Header from 'components/Header';
-import Footer from 'components/Footer';
+import Notification from '../../components/Notification/index';
+import Navigation from 'containers/Navigation/Loadable';
 
 import GlobalStyle from '../../global-styles';
+import { makeSelectAuth, makeApiResponse } from './selectors';
+import { makeSelectMode } from 'containers/Navigation/selectors'
 
-const AppWrapper = styled.div`
-  max-width: calc(768px + 16px * 2);
-  margin: 0 auto;
-  display: flex;
-  min-height: 100%;
-  padding: 0 16px;
-  flex-direction: column;
-`;
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
-export default function App() {
-  return (
-    <AppWrapper>
-      <Helmet
-        titleTemplate="%s - React.js Boilerplate"
-        defaultTitle="React.js Boilerplate"
-      >
-        <meta name="description" content="A React.js Boilerplate application" />
-      </Helmet>
-      <Header />
+function App({ isAuthenticated, apiResponse, mode }) {
+  
+  useInjectReducer({ key: 'app', reducer });
+
+  const prefersDarkMode = useMediaQuery(`(prefers-color-scheme: ${mode})`);
+
+  const theme = React.useMemo(
+    () =>
+      createMuiTheme({
+        palette: {
+          type: prefersDarkMode ? 'light' : 'dark',
+        },
+      }),
+    [prefersDarkMode, mode],
+  );
+
+  const LoginContainer = () => (
+    <React.Fragment>
       <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/features" component={FeaturePage} />
-        <Route path="" component={NotFoundPage} />
+        <Route exact path="/" component={props => <LoginPage user={props}/>} />
       </Switch>
-      <Footer />
+    </React.Fragment>
+  );
+
+  const RedirectContainer = () => (
+    <React.Fragment>
+      <Redirect to="/dashboard" />
+    </React.Fragment>
+  );
+
+  const DefaultContainer = () => (
+    <React.Fragment>
+      <Navigation />
+      {apiResponse && apiResponse.status !== 'inProgress' ? (
+        <Notification
+          infoMessage={apiResponse.message}
+          variantType={apiResponse.status}
+        />
+      ) : (
+        ''
+      )}
+      <Switch>
+        <PrivateRoute
+          exact
+          path="/dashboard"
+          component={Dashboard}
+          authed={isAuthenticated}
+        />
+        <PrivateRoute component={NotFoundPage} authed={isAuthenticated} />
+      </Switch>
+    </React.Fragment>
+  );
+
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline/>
+    {/* <div> */}
+      <Switch>
+        <Route
+          exact
+          path="/"
+          component={LoginContainer}
+        />
+        <Route component={DefaultContainer} />
+      </Switch>
       <GlobalStyle />
-    </AppWrapper>
+    {/* </div> */}
+    </ThemeProvider>
   );
 }
+
+App.propTypes = {
+  isAuthenticated: PropTypes.bool,
+  apiResponse: PropTypes.object,
+  mode: PropTypes.string,
+};
+
+const mapStateToProps = createStructuredSelector({
+  isAuthenticated: makeSelectAuth(),
+  apiResponse: makeApiResponse(),
+  mode: makeSelectMode(),
+});
+
+const withConnect = connect(mapStateToProps);
+
+export default compose(withConnect)(App);

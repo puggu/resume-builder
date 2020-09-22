@@ -1,0 +1,116 @@
+.login-wrapper {
+    .banner-bg {
+      background-image: url('./images/building-img.png');
+      height: 280px;
+      background-size: cover;
+    }
+    .login-center {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      position: relative;
+      top: -150px;
+    }
+    .login-box {
+      height: 560px;
+      width: 480px;
+      border-radius: 8px;
+      background-color: #ffffff;
+      box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.08);
+      padding: 19px;
+    }
+    .logo-img {
+      height: 100px;
+      margin-top: 24px;
+      margin-bottom: 24px;
+    }
+    .logo-center {
+      display: flex;
+      justify-content: center;
+    }
+    .title {
+      color: #428fd6;
+      font-family: 'Roboto';
+      font-size: 32px;
+      font-weight: 500;
+      line-height: 20px;
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 40px;
+    }
+    .tagline {
+      color: #9eacb9;
+      font-family: 'Roboto';
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 21px;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .w-150 {
+      width: 200px;
+      align-items: center !important;
+      // display: flex;
+      // flex-direction: row;
+      justify-content: center;
+      position: relative;
+    }
+    .label {
+      color: #2a2f33;
+      font-family: 'Roboto';
+      font-size: 1em;
+      text-align: center;
+      font-weight: 500;
+      line-height: 14px;
+    }
+    .error {
+      color: #cf1f1f;
+      font-family: 'Roboto';
+      font-size: 1em;
+      text-align: center;
+      font-weight: 500;
+      line-height: 14px;
+    }
+    .cust-input {
+      height: 33px;
+      // width: 150px;
+      text-align: center;
+      align-items: center;
+      border: 1px solid rgba(177, 192, 204, 0.5);
+      border-radius: 4px;
+      padding: 0px 12px;
+      &::before {
+        border: none !important;
+      }
+      &::after {
+        border: none !important;
+      }
+      input {
+        color: #2a2f33;
+        text-align: center;
+        font-family: 'Roboto';
+        font-size: 14px;
+        line-height: 24px;
+      }
+    }
+    .MuiFormControl-root {
+      display: flex;
+      justify-content: center;
+    }
+    .btn-center {
+      display: flex;
+      justify-content: center;
+    }
+    .btn {
+      height: 40px;
+      /* width: 280px; */
+      border-radius: 20px !important;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      // background-color: #ffffff !important;
+      box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.24) !important;
+      padding: 5px 18px !important;
+      font-size: 18px !important;
+    }
+  }
+  

@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: leave-management-fe-deployment
+  labels:
+    app: leave-management-fe
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: leave-management-fe
+  template:
+    metadata:
+      labels:
+        app: leave-management-fe
+    spec:
+      containers:
+      - name: leave-management-fe
+        image: $imageName
+       # imagePullPolicy: Never
+        volumeMounts:
+        - name: "ssl-certificate"
+          mountPath: "/etc/nginx/certificate.crt"
+          subPath: "certificate.crt"
+          readOnly: true        
+        - name: "ssl-certificate"
+          mountPath: "/etc/nginx/server.key"
+          subPath: "server.key"
+          readOnly: true
+        ports:
+        - name: port80
+          containerPort: 80
+        - name: port443
+          containerPort: 443
+      imagePullSecrets:
+      # kubernetes secret created for docker registry
+      - name: afour-private-registry-creds
+      volumes:
+        - name: "ssl-certificate"
+          secret:
+            secretName: "ssl-certificate"

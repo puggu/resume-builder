@@ -8,37 +8,47 @@
  */
 
 import produce from 'immer';
-import { LOAD_REPOS_SUCCESS, LOAD_REPOS, LOAD_REPOS_ERROR } from './constants';
+import {
+  USER_DATA_SUCCESS,
+  USER_DATA_CLEAR,
+  API_RESPONSE,
+  API_RESPONSE_SUCCESS,
+  API_RESPONSE_ERROR,
+  API_RESPONSE_DEFAULT_NOTIFICATION,
+  API_RESPONSE_SUCCESS_NOTIFICATION,
+  API_RESPONSE_ERROR_NOTIFICATION,
+} from './constants';
+import { loadState } from '../../localStorage';
 
 // The initial state of the App
 export const initialState = {
-  loading: false,
-  error: false,
-  currentUser: false,
-  userData: {
-    repositories: false,
-  },
+  userData: {},
+  isAuthenticated: false,
+  apiResponse: { ...API_RESPONSE_DEFAULT_NOTIFICATION },
 };
 
 /* eslint-disable default-case, no-param-reassign */
-const appReducer = (state = initialState, action) =>
+const appReducer = (state = loadState() || initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
-      case LOAD_REPOS:
-        draft.loading = true;
-        draft.error = false;
-        draft.userData.repositories = false;
+      case USER_DATA_SUCCESS:
+        draft.userData = action.userData;
+        draft.isAuthenticated = true;
+        draft.apiResponse = { ...API_RESPONSE_DEFAULT_NOTIFICATION };
         break;
-
-      case LOAD_REPOS_SUCCESS:
-        draft.userData.repositories = action.repos;
-        draft.loading = false;
-        draft.currentUser = action.username;
+      case USER_DATA_CLEAR:
+        draft.userData = action.userData;
+        draft.isAuthenticated = false;
+        draft.apiResponse = { ...API_RESPONSE_DEFAULT_NOTIFICATION };
         break;
-
-      case LOAD_REPOS_ERROR:
-        draft.error = action.error;
-        draft.loading = false;
+      case API_RESPONSE:
+        draft.apiResponse = { ...API_RESPONSE_DEFAULT_NOTIFICATION };
+        break;
+      case API_RESPONSE_SUCCESS:
+        draft.apiResponse = action.message ? {status: 'success', message: action.message} : { ...API_RESPONSE_SUCCESS_NOTIFICATION };
+        break;
+      case API_RESPONSE_ERROR:
+        draft.apiResponse = action.message ? { status: 'error', message: action.message } : { ...API_RESPONSE_ERROR_NOTIFICATION };
         break;
     }
   });
