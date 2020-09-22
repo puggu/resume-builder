@@ -59,6 +59,7 @@ import OptionalHolidayTrigger from 'components/OptionalHolidayTrigger';
 import ManagerDashboard from 'components/ManagerDashboard/Loadable'
 import DuDashBoard from 'components/DuDashBoard/Loadable'
 import HrTeamview from 'components/HrTeamview/Loadable'
+import Resume from '../../components/Resume';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -286,7 +287,7 @@ export function Dashboard({value, setValue, employeeList, getAllEmployees, userD
         <DuDashBoard employeeInfo={employeeInfo} employeeList={employeeList_du} leaveData={leaveData} getLeaveData={getLeaveData} empTransactions={empTransactions} getAllEmpTransactions={getAllEmpTransactions} isHr={hrAccessTabValid}/>
       </TabPanel>
       <TabPanel value={value} className={classes.tabPanel} index={25}>
-        <DuDashBoard employeeInfo={employeeInfo} employeeList={employeeList_du} leaveData={leaveData} getLeaveData={getLeaveData} empTransactions={empTransactions} getAllEmpTransactions={getAllEmpTransactions} isHr={hrAccessTabValid}/>
+        <Resume employeeInfo={employeeInfo}/>
       </TabPanel>
     </div>
   );
