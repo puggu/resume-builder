@@ -101,12 +101,22 @@ const StyledTableRow = withStyles((theme) => ({
 
 function Resume() {
   const classes = useStyles();
+  
+  const initProjectData = {
+    "description": "",
+    "problemSolved": "",
+    "keyRoleAndResponsibilities": "",
+    "keyTools": "",
+  }
+
+
   const [role, setRole] = React.useState('');
   const [valueAdded, setValueAdded] = React.useState('');
   const [profileSummary, setProfileSummary] = React.useState('');
   const [hobbies, setHobbies] = React.useState('');
   const [qualification, setQualification] = React.useState('');
   const [project, setProject] = React.useState(false);
+  const [projectData, setProjectData] = useState(initProjectData);
 
   function createData(name) {
     return {name};
@@ -284,6 +294,8 @@ function Resume() {
               margin="dense"
               label="Project Description:"
               fullWidth
+              value={projectData.description} 
+              onChange={e => setProjectData({...projectData, description: e.target.value})}
             />
             <TextField
               autoFocus
@@ -292,6 +304,8 @@ function Resume() {
               margin="dense"
               label="Problem Solved for the Customer:"
               fullWidth
+              value={projectData.problemSolved} 
+              onChange={e => setProjectData({...projectData, problemSolved: e.target.value})}
             />
             <TextField
               autoFocus
@@ -300,6 +314,8 @@ function Resume() {
               margin="dense"
               label="My Role and Key Responsibilities:"
               fullWidth
+              value={projectData.keyRoleAndResponsibilities} 
+              onChange={e => setProjectData({...projectData, keyRoleAndResponsibilities: e.target.value})}
             />
             <TextField
               autoFocus
@@ -308,6 +324,8 @@ function Resume() {
               margin="dense"
               label="Key Tools/Technologies Used (Upto 5 Tools/Technologies):"
               fullWidth
+              value={projectData.keyTools} 
+              onChange={e => setProjectData({...projectData, keyTools: e.target.value})}
             />
           </DialogContent>
           <DialogActions>
