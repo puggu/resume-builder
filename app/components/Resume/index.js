@@ -7,7 +7,7 @@
 import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 // import styled from 'styled-components';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles,makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
@@ -23,9 +23,12 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-// import TableContainer from '@material-ui/core/TableContainer';
-// import TableHead from '@material-ui/core/TableHead';
-// import TableRow from '@material-ui/core/TableRow';
+import Table from '@material-ui/core/Table';
+import TableCell from '@material-ui/core/TableCell';
+import TableBody from '@material-ui/core/TableBody';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 // import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 // import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 // import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -78,8 +81,23 @@ const useStyles = makeStyles({
   projectAddButton :{
     float : 'right',
     marginBottom : 20,
+  },
+  table: {
+    minWidth: 650,
+  },
+  skillInput: {
+    marginRight : 100,
+    width: '40ch',
   }
 });
+
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+  },
+}))(TableRow);
 
 function Resume() {
   const classes = useStyles();
@@ -87,7 +105,23 @@ function Resume() {
   const [valueAdded, setValueAdded] = React.useState('');
   const [profileSummary, setProfileSummary] = React.useState('');
   const [hobbies, setHobbies] = React.useState('');
+  const [qualification, setQualification] = React.useState('');
   const [project, setProject] = React.useState(false);
+
+  function createData(name) {
+    return {name};
+  }
+
+  const rows = [
+    createData('Leadership/Management Skills :'),
+    createData('Programming/Scripting Language Used :'),
+    createData('API Testing Tools Used :'),
+    createData('Web Testing Automation Libraries :'),
+    createData('Databases used :'),
+    createData('Desktop Application Automation Tools/Software :'),
+    createData('CI/CD Tools :'),
+    createData('Cloud for Testing :'),
+  ];
 
   const handleProjectOpen = () => {
     setProject(true);
@@ -108,6 +142,9 @@ function Resume() {
   };
   const handleHobbies = (event) => {
     setHobbies(event.target.value);
+  };
+  const handleQualification = (event) => {
+    setQualification(event.target.value);
   };
   
   // things to add more :
@@ -162,6 +199,48 @@ function Resume() {
         <Typography className={classes.title} color="primary" gutterBottom>
           Skillset Summary
         </Typography>
+        <TableContainer component={Paper}>
+        <Table className={classes.table} size="small" aria-label="a dense table">
+        <TableHead>
+          <TableRow>
+            <TableCell>Categories</TableCell>
+            <TableCell align="left">Skills</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map((row) => (
+            <StyledTableRow key={row.name}>
+              <TableCell component="th" scope="row">
+                {row.name}
+              </TableCell>
+              <TableCell align="left">
+              <TextField className={classes.skillInput}
+                id="input-skills"
+              />
+              </TableCell>
+            </StyledTableRow>
+          ))}
+        </TableBody>
+      </Table>
+      </TableContainer>
+      </CardContent>
+      </Card>
+      </div>
+      <div className={classes.inputCards}>
+      <Card className={classes.root} variant="outlined" raised="true">
+      <CardContent>
+        <Typography className={classes.title} color="primary" gutterBottom>
+          Qualification
+        </Typography>
+        <TextField
+          placeholder="Eg. B.E./B.Tech - Electronics and Telecommunication , Unviversity of Pune."
+          multiline
+          fullWidth
+          rows={5}
+          variant="outlined"
+          value={qualification}
+          onChange={handleQualification}
+        />
       </CardContent>
       </Card>
       </div>
