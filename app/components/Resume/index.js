@@ -42,10 +42,10 @@ import Button from '@material-ui/core/Button';
 // import Slide from '@material-ui/core/Slide';
 import { TextareaAutosize, FormLabel, TextField } from '@material-ui/core';
 
-
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme=>({
   root: {
-    minWidth: 275,
+    minWidth: 400,
+    backgroundColor: theme.palette.background.paper,
   },
   title: {
     fontSize: 14,
@@ -73,6 +73,7 @@ const useStyles = makeStyles({
   },
   saveButton: {
     float : 'right',
+    marginLeft: '10px'
   },
   inputCards : {
     marginBottom: 5,
@@ -89,7 +90,7 @@ const useStyles = makeStyles({
     marginRight : 100,
     width: '40ch',
   }
-});
+}));
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
@@ -183,6 +184,7 @@ function Resume() {
           <MenuItem value={3}>Other</MenuItem>
         </Select>
       </FormControl>
+      <Button className={classes.saveButton} variant="contained" color="primary">Preview</Button>
       <Button className={classes.saveButton} variant="contained" color="primary">Save</Button>
       </div>
       <div className={classes.inputCards}>

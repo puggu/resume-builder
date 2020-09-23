@@ -9,12 +9,12 @@ export const JWT_TOKEN_KEY = 'afourtechERP';
 export const API = process.env.API_URL;
 
 export const NAVIGATION_HEADER = {
-    '/dashboard': 'DASHBOARD',
+    '/dashboard': '',
   };
   
   export const NAVIGATION_BREADCRUMB = {
     '/dashboard': {
-      name: ['LHCM Dashboard'],
+      name: ['Resume Builder'],
       links: ['/dashboard'],
     },
   };
