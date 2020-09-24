@@ -6,40 +6,8 @@
 
 import React, { memo, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
-import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-
-import { useInjectSaga } from 'utils/injectSaga';
-import { useInjectReducer } from 'utils/injectReducer';
-import makeSelectDashboard, { makeSelectTabValue, makeSelectEmployeeList,
-  makeSelectLoading, makeSelectLeaveBalance,
-  makeSelectEmployeeInfo, makeSelectEmployeeRole, makeSelectEmployeeLeaves,
-  makeSelectLeaveData,makeSelectReviews, makeSelectEmpTransactions, makeSelectOptionalHolidayList,
-  makeSelectManagerLeaves,
-  makeSelectYearlyEmployees, makeSelectEmployeesLeaveBalance,
-  makeSelectCompOffBalance, makeSelectNextCompOffBalance, makeSelectEmpCompOffTransactions,
-  makeSelectManagerCompOffTransactions, makeSelectHrCompOffTransactions,
-  makeSelectWfhBalance, makeSelectEmpWfh, makeSelectManagerWfh, makeSelectHrWfh,
-  makeSelectHolidayList, makeSelectResourceType, makeSelectUnTriggeredEmployee
-} from './selectors';
-import { makeSelectUser } from 'containers/App/selectors';
-import reducer from './reducer';
-import saga from './saga';
-import { putTabValue, getAllEmployees,
-  getLeaveBalance, getEmployeeInfo, getEmployeeRoles, getLeaves, postLeave, withdrawLeave,
-  getCompOffBalance, getNextCompOffBalance, getCompOffTransactions, postCompOff,
-  getWfhBalance, getWfhTransactions, postWfh, putWfh,
-  getLeaveData,getAllReviews,getAllEmpTransactions,
-  getOptionalHoliday, deleteOptionalHoliday, postOptionalHoliday,
-  getManagerLeaves, putManagerLeavesActions, putCompOff,
-  getYearlyEmployees, postYearlyEmployees, getEmployeesLeaveBalance, putEmployeeLeaveBalance,
-  getHoliday, postHoliday, deleteHoliday, getResourceType, putResourceType, getUntriggeredEmployees
-} from './actions';
-
 import './styles.scss';
-
 import { makeStyles } from '@material-ui/core/styles';
 import Resume from 'components/Resume/Loadable';
 
@@ -70,7 +38,7 @@ const useStyles = makeStyles(theme => ({
     width: '95vw',
     marginLeft: '20px',
     marginTop: '20px'
-  }
+  },
 }));
 const value=0;
 export function Dashboard() {
@@ -78,10 +46,8 @@ export function Dashboard() {
   return (
     <div className={classes.root}>
       <div className={classes.tabPanel}>
-      <Resume/>
-      </div>
-      
-        
+        <Resume/>
+      </div>  
     </div>
   );
 }
