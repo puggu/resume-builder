@@ -125,8 +125,8 @@ module.exports = require('./webpack.base.babel')({
     }),
 
     new WebpackPwaManifest({
-      name: 'LHCM',
-      short_name: 'LHCM',
+      name: 'Resume Builder',
+      short_name: 'Resume',
       description: 'AFour Leave Management portal',
       background_color: '#fafafa',
       theme_color: '#b1624d',

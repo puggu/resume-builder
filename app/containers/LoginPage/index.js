@@ -35,7 +35,7 @@ export function LoginPage({user, loading, getLogin}) {
   return (
     <div>
       <Helmet>
-        <title>LHCM</title>
+        <title>Resume Builder</title>
         <meta name="description" content="Description of LoginPage" />
       </Helmet>
         <div className="login-wrapper">
@@ -46,7 +46,7 @@ export function LoginPage({user, loading, getLogin}) {
               <div className="logo-center">
                 <img className="logo-img" src={Logo} alt="AFourLogo" />
               </div>
-              <h1 className="title">AFour Leave Portal</h1>
+              {/* <h1 className="title">AFour Leave Portal</h1> */}
               <p className="tagline">
                 Go to <a href={process.env.ERP_URL}>ERP</a> and signin with your google account.
               </p>
