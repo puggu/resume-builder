@@ -31,6 +31,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import { TextareaAutosize, FormLabel, TextField } from '@material-ui/core';
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 
 const useStyles = makeStyles(theme=>({
   root: {
@@ -79,6 +80,13 @@ const useStyles = makeStyles(theme=>({
   skillInput: {
     marginRight : 100,
     width: '40ch',
+  },
+  controls: {
+    // display: 'flex',
+    alignItems: 'center',
+    paddingLeft: theme.spacing(1),
+    paddingTop: theme.spacing(1),
+    marginLeft: 50,
   }
 }));
 
@@ -173,7 +181,10 @@ function Resume() {
           <MenuItem value={2}>Auto. Engineer</MenuItem>
           <MenuItem value={3}>Other</MenuItem>
         </Select>
-      </FormControl>
+      </FormControl> 
+      <Button>
+        <AddAPhotoIcon className={classes.controls} fontSize="large"/>
+        </Button>
       <Button className={classes.saveButton} variant="contained" color="primary">Preview</Button>
       <Button className={classes.saveButton} variant="contained" color="primary">Save</Button>
       </div>
